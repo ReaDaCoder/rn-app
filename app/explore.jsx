@@ -31,28 +31,24 @@ export default function TabTwoScreen() {
  placeholder="Name"
  value={name}
  onChangeText={setName}
- // onChangeText={(value) => handleInput('name', value)}
  />
  <TextInput
  style={styles.input}
  placeholder="Surname"
  value={surname}
  onChangeText={setSurname}
- // onChangeText={(value) => handleInput('name', value)}
  />
  <TextInput
  style={styles.input}
  placeholder="email"
  value={email}
  onChangeText={setEmail}
- // onChangeText={(value) => handleInput('email', value)}
  />
  <TextInput
  style={styles.input}
  placeholder="Password"
  value={password}
  onChangeText={setPassword}
- // onChangeText={(value) => handleInput('password', value)}
  secureTextEntry
  />
  <TextInput
@@ -60,7 +56,6 @@ export default function TabTwoScreen() {
  placeholder="Role"
  value={role}
  onChangeText={setRole}
-  //onChangeText={(value) => handleInput('name', value)}
  />
  <TouchableOpacity style={styles.button} onPress={handleSubmit}>
  <Text style={styles.buttonText}>Submit</Text>
