@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
 import 'react-native-reanimated';
+import ProtectedRoute from './protectedRoute';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
@@ -33,6 +34,9 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{title: "Home"}}/>
         <Stack.Screen name="explore" options={{title: "Registration"}}/>
         <Stack.Screen name="home" options={{title: "Home Page"}}/>
+        {/* <ProtectedRoute>
+            
+          </ProtectedRoute> */}
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

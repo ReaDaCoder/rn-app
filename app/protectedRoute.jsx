@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { View, ActivityIndicator } from "react-native";
-import AuthContext from "../context/AuthContext";
+import AuthContext from "./authContext";
 import { Redirect } from "expo-router";
 
 export default function ProtectedRoute({ children }) {
