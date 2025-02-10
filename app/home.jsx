@@ -36,12 +36,13 @@ const App = () => {
     fetchRestaurants();
   }, []);
 
-  const Item = ({ name, imageUrl, days, hours }) => (
+  const Item = ({ name, imageUrl, days, hours, address }) => (
     <View style={styles.item}>
       {imageUrl && <Image source={{ uri: imageUrl }} style={styles.image} />}
       <Text style={styles.title}>{name}</Text>
       <Text style={styles.details}>Days: {days}</Text>
       <Text style={styles.details}>Hours: {hours}</Text>
+      <Text style={styles.details}>Address: {address}</Text>
     </View>
   );
 
@@ -81,6 +82,7 @@ const App = () => {
               imageUrl={item.imageUrl}
               days={item.days}
               hours={item.hours}
+              address={item.address}
             />
           )}
           keyExtractor={(item) => item._id}

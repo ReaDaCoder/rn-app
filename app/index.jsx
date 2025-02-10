@@ -14,16 +14,16 @@ export default function HomeScreen() {
       console.log({ result });
 
       if (result.data.token) {
-        await AsyncStorage.setItem('authToken', result.data.token);  // ✅ Store token
-        Alert.alert('Login Successful', 'Welcome to the app!');      // ✅ User feedback
-        router.push('/dashboard');                                   // ✅ Navigate to dashboard
+        await AsyncStorage.setItem('authToken', result.data.token); 
+        Alert.alert('Login Successful', 'Welcome to the app!');  
+        router.push('/dashboard');                                   
       } else {
-        Alert.alert('Login Failed', 'Invalid credentials. Please try again.');  // ✅ Handle invalid login
+        Alert.alert('Login Failed', 'Invalid credentials. Please try again.');  
       }
     })
     .catch((err) => {
       console.log(err);
-      Alert.alert('Error', 'Something went wrong. Please try again later.');   // ✅ Handle server errors
+      Alert.alert('Error', 'Something went wrong. Please try again later.');  
     });
   };
   return (
