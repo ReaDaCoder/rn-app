@@ -62,9 +62,17 @@ const App = () => {
     );
   }
 
+  const { logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout();
+    Alert.alert("Logged out", "You have been logged out.");
+  };
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
+      <Text style={styles.buttonText}>Logout</Text>
         <FlatList
           data={restaurants}
           renderItem={({ item }) => (
@@ -123,6 +131,10 @@ const styles = StyleSheet.create({
     color: "#FF4C52",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
   },
 });
 

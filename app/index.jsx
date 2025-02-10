@@ -28,10 +28,10 @@ export default function HomeScreen() {
   };
   return (
     <View style={styles.container}>
-    {/* <Image
-      source={require('../assets/images/food-plate')}
+    <Image
+      source={require('../assets/images/food-plate.jpg')}
       style={{ width: 350, height: 300, marginBottom: 35, borderRadius: 200 }}
-    /> */}
+    />
     <Text style={styles.title}>Login</Text>
     <TextInput
       style={styles.input}
