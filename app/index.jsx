@@ -10,8 +10,21 @@ export default function HomeScreen() {
   const handleSubmit = () => {
     axios
     .post('https://restaurant-app-backend-sandy.vercel.app/api/login', { email, password })
-    .then((result) => console.log({result}))
-    .catch((err) => console.log(err));
+    .then(async (result) => {
+      console.log({ result });
+
+      if (result.data.token) {
+        await AsyncStorage.setItem('authToken', result.data.token);  // ✅ Store token
+        Alert.alert('Login Successful', 'Welcome to the app!');      // ✅ User feedback
+        router.push('/dashboard');                                   // ✅ Navigate to dashboard
+      } else {
+        Alert.alert('Login Failed', 'Invalid credentials. Please try again.');  // ✅ Handle invalid login
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      Alert.alert('Error', 'Something went wrong. Please try again later.');   // ✅ Handle server errors
+    });
   };
   return (
     <View style={styles.container}>
