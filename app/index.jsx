@@ -9,8 +9,8 @@ export default function HomeScreen() {
 
   const handleSubmit = () => {
     axios
-    .post('https://restaurant-app-backend-sandy.vercel.app/login', { email, password })
-    .then((result) => console.log(result))
+    .post('https://restaurant-app-backend-sandy.vercel.app/api/login', { email, password })
+    .then((result) => console.log({result}))
     .catch((err) => console.log(err));
   };
   return (

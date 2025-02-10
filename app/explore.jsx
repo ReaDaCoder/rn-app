@@ -7,16 +7,16 @@ import axios from 'axios';
 
 export default function TabTwoScreen() {
 
-  const [name, setName] = useState();
-  const [surname, setSurname] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [role, setRole] = useState();
+  const [name, setName] = useState('');
+  const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    console.log(name, surname, email, password, role)
     axios.post('https://restaurant-app-backend-sandy.vercel.app/api/register', {name, surname, email, password, role})
-    .then(result => console.log(result))
+    .then(result => console.log({result}))
     .catch(err => console.log(err))
   }
   return (

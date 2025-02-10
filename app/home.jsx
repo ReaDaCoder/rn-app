@@ -20,7 +20,11 @@ const App = () => {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const response = await axios.get("https://restaurant-app-backend-sandy.vercel.app"); 
+        const response = await axios.get("https://restaurant-app-backend-sandy.vercel.app/api/restaurants",{"headers":{
+          Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2EyMTZiM2FiZjQyZTkwODBhZGZjZTYiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3Mzg2NzU5NDYsImV4cCI6MTczODY4Njc0Nn0.RKIw3uTV1wNj5Z244tvZv3ja_PCHlvoCAVQi04VcqY8
+`
+        }}); 
+        console.log(response)
         setRestaurants(response.data);
       } catch (err) {
         console.error("Error fetching restaurants:", err);
