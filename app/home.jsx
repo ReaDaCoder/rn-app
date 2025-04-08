@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default homePage;
+export default HomePage;
