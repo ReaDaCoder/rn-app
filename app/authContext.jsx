@@ -3,14 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const AuthContext = createContext();
-
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  const [auth, setAuth] = useState("");
   
   useEffect(() => {
     const loadToken = async () => {
-      const token = await AsyncStorage.getItem("jwtToken");
+      const token = await AsyncStorage.getItem("authToken");
       if (token) {
         setUser({ token });
       }
@@ -39,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{auth, setAuth}}>
       {children}
     </AuthContext.Provider>
   );

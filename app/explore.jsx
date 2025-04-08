@@ -60,7 +60,7 @@ export default function TabTwoScreen() {
  <TouchableOpacity style={styles.button} onPress={handleSubmit}>
  <Text style={styles.buttonText}>Submit</Text>
  </TouchableOpacity>
- <Link href="../components//LoginPage.jsx" style={styles.linkText}>Already have an account? Log In</Link>
+ <Link href="../app/index" style={styles.linkText}>Already have an account? Log In</Link>
  <Link href="/home" style={styles.linkText}>Home Page</Link>
         </ScrollView>
       

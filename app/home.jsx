@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   View,
   FlatList,
@@ -11,20 +11,38 @@ import {
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import axios from "axios";
+import AuthContext from "./authContext";
 
-const App = () => {
+const HomePage = () => {
+  const {auth} = useContext(AuthContext);
+  console.log("AuthContext Value:", auth);
+
+  if (!auth) {
+    return <Text>Error: Authentication is not available.</Text>;
+  }
+
+  const { user, logout } = auth;
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); 
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchRestaurants = async () => {
+      if (!user?.token) {
+        console.error("User is not authenticated.");
+        setError("Authentication required.");
+        setLoading(false);
+        return;
+      }
       try {
-        const response = await axios.get("https://restaurant-app-backend-sandy.vercel.app/api/restaurants",{"headers":{
-          Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2EyMTZiM2FiZjQyZTkwODBhZGZjZTYiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicm9sZSI6IlVTRVIiLCJpYXQiOjE3Mzg2NzU5NDYsImV4cCI6MTczODY4Njc0Nn0.RKIw3uTV1wNj5Z244tvZv3ja_PCHlvoCAVQi04VcqY8
-`
-        }}); 
-        console.log(response)
+        const response = await axios.get(
+          "https://restaurant-app-backend-sandy.vercel.app/api/restaurants",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+            },
+          }
+        );
         setRestaurants(response.data);
       } catch (err) {
         console.error("Error fetching restaurants:", err);
@@ -34,17 +52,11 @@ const App = () => {
       }
     };
     fetchRestaurants();
-  }, []);
-
-  const Item = ({ name, imageUrl, days, hours, address }) => (
-    <View style={styles.item}>
-      {imageUrl && <Image source={{ uri: imageUrl }} style={styles.image} />}
-      <Text style={styles.title}>{name}</Text>
-      <Text style={styles.details}>Days: {days}</Text>
-      <Text style={styles.details}>Hours: {hours}</Text>
-      <Text style={styles.details}>Address: {address}</Text>
-    </View>
-  );
+  }, [user]);
+  const handleLogout = () => {
+    logout();
+    Alert.alert("Logged out", "You have been logged out.");
+  };
 
   if (loading) {
     return (
@@ -63,17 +75,22 @@ const App = () => {
     );
   }
 
-  const { logout } = useContext(AuthContext);
-
-  const handleLogout = () => {
-    logout();
-    Alert.alert("Logged out", "You have been logged out.");
-  };
+  const Item = ({ name, imageUrl, days, hours, address }) => (
+    <View style={styles.item}>
+      {imageUrl && <Image source={{ uri: imageUrl }} style={styles.image} />}
+      <Text style={styles.title}>{name}</Text>
+      <Text style={styles.details}>Days: {days}</Text>
+      <Text style={styles.details}>Hours: {hours}</Text>
+      <Text style={styles.details}>Address: {address}</Text>
+    </View>
+  );
 
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
-      <Text style={styles.buttonText}>Logout</Text>
+        <Text style={styles.buttonText} onPress={handleLogout}>
+          Logout
+        </Text>
         <FlatList
           data={restaurants}
           renderItem={({ item }) => (
@@ -140,4 +157,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default homePage;

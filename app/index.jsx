@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { StyleSheet, TextInput, Text, View, Alert, Image,Pressable } from 'react-native';
 import {Link} from 'expo-router';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
 
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+const { setUser } = useContext(AuthContext);
+
 
   const handleSubmit = () => {
     axios
@@ -15,8 +19,9 @@ export default function HomeScreen() {
 
       if (result.data.token) {
         await AsyncStorage.setItem('authToken', result.data.token); 
+        setUser({ token: result.data.token });
         Alert.alert('Login Successful', 'Welcome to the app!');  
-        router.push('/dashboard');                                   
+        // router.push('./home');                                   
       } else {
         Alert.alert('Login Failed', 'Invalid credentials. Please try again.');  
       }
