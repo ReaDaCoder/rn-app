@@ -14,14 +14,18 @@ import axios from "axios";
 import AuthContext from "./authContext";
 
 const HomePage = () => {
-  const {auth} = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext); 
   console.log("AuthContext Value:", auth);
 
-  if (!auth) {
+
+  // if (!auth) {
+  //   return <Text>Error: Authentication is not available.</Text>;
+  // }
+
+  if (!user) {
     return <Text>Error: Authentication is not available.</Text>;
   }
 
-  const { user, logout } = auth;
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,9 +34,11 @@ const HomePage = () => {
     const fetchRestaurants = async () => {
       if (!user?.token) {
         console.error("User is not authenticated.");
+        console.log("User:", user?.token);
         setError("Authentication required.");
         setLoading(false);
         return;
+      
       }
       try {
         const response = await axios.get(

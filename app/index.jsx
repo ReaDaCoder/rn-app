@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 export default function HomeScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-const { setUser } = useContext(AuthContext);
+// const { setUser } = useContext(AuthContext);
 
 
   const handleSubmit = () => {
@@ -21,7 +21,7 @@ const { setUser } = useContext(AuthContext);
         await AsyncStorage.setItem('authToken', result.data.token); 
         setUser({ token: result.data.token });
         Alert.alert('Login Successful', 'Welcome to the app!');  
-        // router.push('./home');                                   
+        router.push('./home');                                   
       } else {
         Alert.alert('Login Failed', 'Invalid credentials. Please try again.');  
       }
